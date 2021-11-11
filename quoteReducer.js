@@ -6,29 +6,30 @@ let quote5 = "Knowing yourself is the beginning of all wisdom. - By: Aristotle";
 let quoteArray = [];
 quoteArray.push(quote1, quote2, quote3, quote4, quote5)
 
-//console.log(quoteArray.length)
+const randomizeQuote = () => {
+    let randomDec = Math.random() * quoteArray.length;
+    let randomInt = Math.floor(randomDec);
 
-let randomDec = Math.random() * quoteArray.length;
-let randomInt = Math.floor(randomDec);
-//console.log(randomInt)
-let randomQuote = quoteArray[randomInt];
-// console.log(randomQuote)
-const quoteWithAuthor = randomQuote;
-const splitedRandomQuotes = quoteWithAuthor.split("-")
-const splitedQuote = splitedRandomQuotes[0];
-const splitedAuthor = splitedRandomQuotes[1]
-
+    return quoteArray[randomInt];
+};
+const splitQuote = (randomQuote) => {
+    const splitedRandomQuotes = randomQuote.split("-")
+    
+    return {
+        quote: splitedRandomQuotes[0],
+        author: splitedRandomQuotes[1]
+    };
+} 
 // console.log("quote =" + splitedQuote)
 // console.log("authore =" + splitedAuthor)
 
-const previousState = {
-    quote: splitedQuote,
-    author: splitedAuthor
-};
 
-const quoteReducer = (state = previousState, action) => {
+
+const quoteReducer = (state = splitQuote(randomizeQuote()), action) => {
     switch (action.type) {
         case "UPDATE_QUOTE":
+            state = splitQuote(randomizeQuote())
+            console.log(state)
             return {
                 quote: state.quote,
                 author: state.author
